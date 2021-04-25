@@ -1,3 +1,4 @@
+const {response} = require('express');
 const express = require('express');
 const app = express();
 
@@ -36,6 +37,17 @@ app.get('/info', (req, res) => {
 	let time = new Date();
 	let message = `<p>Phonebook has info for ${persons.length} people<br>${time}</p>`;
 	res.send(message);
+});
+
+app.get('/api/persons/:id', (req, res) => {
+	let id = req.params.id;
+	let person = persons.find(person => person.id == id);
+
+	if (person) {
+		res.json(person);
+	} else {
+		res.status(404).end();
+	}
 });
 
 app.listen(3001, () => {
