@@ -50,6 +50,12 @@ app.get('/api/persons/:id', (req, res) => {
 	}
 });
 
+app.delete('/api/persons/:id', (req, res) => {
+	let id = Number(req.params.id);
+	persons = persons.filter(person => person.id !== id);
+	res.status(204).end();
+});
+
 app.listen(3001, () => {
 	console.log(`El servidor esta corriendo en el puerto 3001`);
 });
