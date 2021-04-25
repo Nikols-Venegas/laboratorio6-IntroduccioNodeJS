@@ -32,6 +32,12 @@ app.get('/api/persons', (req, res) => {
 	res.json(persons);
 });
 
+app.get('/info', (req, res) => {
+	let time = new Date();
+	let message = `<p>Phonebook has info for ${persons.length} people<br>${time}</p>`;
+	res.send(message);
+});
+
 app.listen(3001, () => {
 	console.log(`El servidor esta corriendo en el puerto 3001`);
 });
