@@ -58,10 +58,23 @@ app.delete('/api/persons/:id', (req, res) => {
 });
 
 app.post('/api/persons', (req, res) => {
+	const body = req.body;
+	let revisarDupli = persons.filter(persona => {
+		return persona.name === body.name;
+	});
+	if (!body.name || !body.number) {
+		return res.status(400).json({
+			error: 'Falta el nombre o número'
+		});
+	} else if (revisarDupli.length > 0) {
+		return res.status(400).json({
+			error: 'El nombre ya existe en la agenda'
+		});
+	}
 	let person = {
 		id: Math.floor(Math.random() * 100000) + 5,
-		name: req.body.name,
-		number: req.body.number
+		name: body.name,
+		number: body.number
 	};
 
 	persons = persons.concat(person);
